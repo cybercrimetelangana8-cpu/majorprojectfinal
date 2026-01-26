@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python Phishing URL Detection
 ---
 
@@ -87,3 +88,6 @@ Open http://127.0.0.1:5000 in your browser!
 
 [![](https://img.shields.io/github/followers/sannjayy?style=social)](https://github.com/sannjayy)  
 Developed with ❤️ by *[sanjaysikdar.dev](https://www.sanjaysikdar.dev)*.
+=======
+# Real-Time-Website-Threat-Detection
+>>>>>>> 13979c0b1193c28421c6dd500ca4233a83b1095f
