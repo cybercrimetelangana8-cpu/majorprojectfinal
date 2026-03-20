@@ -2,14 +2,14 @@
 # Python Phishing URL Detection
 ---
 
-### Demo Video: [https://youtu.be/9t4gbbrkfks](https://youtu.be/9t4gbbrkfks)
+### Demo Video: [youtube.com/watch?si=ttLCXu7wOhOWcPMq&v=pR_KcZEQ3M0&feature=youtu.be)
 
 **Python 3.11.9 _(Currently Using)_**
 
 
 ## How to Run?
 
-- Clone or download [python-phishing-url-detection](https://github.com/sannjayy/python-phishing-url-detection) 
+- Clone or download [python-phishing-url-detection](https://github.com/cybercrimetelangana8-cpu/majorprojectfinal) 
 
 `git clone git@github.com:sannjayy/python-phishing-url-detection.git`
 
@@ -74,20 +74,4 @@ python app.py
 Open http://127.0.0.1:5000 in your browser!
 
 
-
---- 
----
-
-- 🌏 [GitHub Repo](https://github.com/sannjayy/python-phishing-url-detection) 
-- 🌏 [Website](https://www.sanjaysikdar.dev) 
-- 📫 <me@sanjaysikdar.dev>
-- 📖 [read.sanjaysikdar.dev](https://read.sanjaysikdar.dev)
-- 📦 [pypi releases](https://pypi.org/user/sannjayy/) | [npm releases](https://www.npmjs.com/~sannjayy)
-
----
-
-[![](https://img.shields.io/github/followers/sannjayy?style=social)](https://github.com/sannjayy)  
-Developed with ❤️ by *[sanjaysikdar.dev](https://www.sanjaysikdar.dev)*.
-=======
-# Real-Time-Website-Threat-Detection
->>>>>>> 13979c0b1193c28421c6dd500ca4233a83b1095f
+ 13979c0b1193c28421c6dd500ca4233a83b1095f
