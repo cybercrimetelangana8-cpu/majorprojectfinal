@@ -10,3 +10,4 @@ google-generativeai
 whois
 joblib
 httpx
+pycaret
