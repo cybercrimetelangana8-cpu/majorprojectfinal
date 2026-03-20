@@ -9,3 +9,4 @@ gunicorn
 google-generativeai
 whois
 joblib
+httpx
