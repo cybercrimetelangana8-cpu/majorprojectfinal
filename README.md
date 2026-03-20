@@ -3,7 +3,7 @@
 ---
 
 
-- Demo Video: [YOUTUBE](youtube.com/watch?si=ttLCXu7wOhOWcPMq&v=pR_KcZEQ3M0&feature=youtu.be) 
+- Demo Video: [YOUTUBE](https://youtu.be/pR_KcZEQ3M0?si=eCWqnNoDoV0xreYZ) 
 
 **Python 3.11.9 _(Currently Using)_**
 
