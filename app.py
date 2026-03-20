@@ -21,15 +21,21 @@ app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
 mail = Mail(app)
 
 # ✅ Lazy loading models
+
+
 model = None
 pca = None
 
 def load_models():
     global model, pca
-    if model is None:
-        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-        model = joblib.load(os.path.join(BASE_DIR, "model/phishingdetection.pkl"))
-        pca = joblib.load(os.path.join(BASE_DIR, "model/pca_model.pkl"))
+    try:
+        if model is None:
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            model = joblib.load(os.path.join(BASE_DIR, "model/phishingdetection.pkl"))
+            pca = joblib.load(os.path.join(BASE_DIR, "model/pca_model.pkl"))
+    except Exception as e:
+        print("MODEL LOAD ERROR:", e)
+        
 
 def predict(url):
     load_models()
@@ -47,6 +53,9 @@ def predict(url):
         "prediction_score": round(prob * 100, 2),
     }
 
+@app.route("/test")
+def test():
+    return "Server is running ✅"
 
 @app.route("/", methods=["GET", "POST"])
 def index():
