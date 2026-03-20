@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template, redirect, url_for, flash
 from featureExtractor import featureExtraction
-from pycaret.classification import load_model, predict_model
 from gemini_report import generate_url_report, ask_gemini_about_url
 from flask_mail import Mail, Message
 from werkzeug.utils import secure_filename
 import os
+import joblib
 
 app = Flask(__name__)
 app.secret_key = "real_time_threat_detection_secret"
@@ -13,22 +13,38 @@ app.config["UPLOAD_FOLDER"] = "static/uploads"
 
 # Mail config
 app.config["MAIL_SERVER"] = os.getenv("MAIL_SERVER")
-app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT"))
+app.config["MAIL_PORT"] = int(os.getenv("MAIL_PORT", 587))
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USERNAME"] = os.getenv("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = os.getenv("MAIL_PASSWORD")
 
 mail = Mail(app)
 
-model = load_model("model/phishingdetection")
+# ✅ Lazy loading models
+model = None
+pca = None
 
+def load_models():
+    global model, pca
+    if model is None:
+        BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+        model = joblib.load(os.path.join(BASE_DIR, "model/phishingdetection.pkl"))
+        pca = joblib.load(os.path.join(BASE_DIR, "model/pca_model.pkl"))
 
 def predict(url):
+    load_models()
     data = featureExtraction(url)
-    r = predict_model(model, data=data)
+
+    # If PCA used
+    if pca:
+        data = pca.transform(data)
+
+    pred = model.predict(data)[0]
+    prob = model.predict_proba(data)[0].max()
+
     return {
-        "prediction_label": r["prediction_label"][0],
-        "prediction_score": round(r["prediction_score"][0] * 100, 2),
+        "prediction_label": int(pred),
+        "prediction_score": round(prob * 100, 2),
     }
 
 
@@ -44,6 +60,7 @@ def index():
 
     if url:
         data = predict(url)
+
         report = generate_url_report(
             url,
             data["prediction_label"],
@@ -82,7 +99,8 @@ def complaint():
 
     if screenshot and screenshot.filename:
         filename = secure_filename(screenshot.filename)
-        screenshot.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+        filepath = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        screenshot.save(filepath)
 
     recipients = ["cyber.crime.telangana8@gmail.com"]
     if extra_email:
@@ -125,5 +143,6 @@ This complaint was generated automatically.
     return redirect(url_for("index", url=url))
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# ❌ REMOVE THIS (important for Vercel)
+# if __name__ == "__main__":
+#     app.run(debug=True)
